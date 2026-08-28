@@ -1,5 +1,8 @@
-﻿//function to dynamically load the SVG and add event listeners
+﻿// Function to dynamically load the SVG and add event listeners
 function loadSVG() {
+    const container = document.getElementById('svg-container');
+    if (!container) return;
+
     fetch('dz.svg')
         .then(response => {
             if (!response.ok) {
@@ -8,14 +11,16 @@ function loadSVG() {
             return response.text();
         })
         .then(svgContent => {
-            const container = document.getElementById('svg-container');
             container.innerHTML = svgContent;
 
-            //apply event listeners for the paths inside the SVG
+            // Apply event listeners for the paths inside the SVG
             const all_states = container.querySelectorAll("path");
             all_states.forEach(state => {
                 state.addEventListener("click", () => {
-                    apifun(state.getAttribute("name"));
+                    const stateName = state.getAttribute("name");
+                    if (stateName) {
+                        apifun(stateName);
+                    }
                 });
             });
         })
@@ -24,17 +29,18 @@ function loadSVG() {
         });
 }
 
-//call the loadSVG function on page load
+// Call loadSVG on page load
 document.addEventListener('DOMContentLoaded', loadSVG);
 
-//function to handle video reveal and smooth scroll
+// Function to handle video reveal and smooth scroll
 function showVideo() {
     const videoSection = document.getElementById("video-section");
-    videoSection.style.display = "block"; // Display the video section
-    videoSection.scrollIntoView({ behavior: "smooth" }); // Smooth scroll to the video section
+    if (!videoSection) return;
+    videoSection.style.display = "block";
+    videoSection.scrollIntoView({ behavior: "smooth" });
 }
 
-//search functionality
+// Search functionality
 const pages = {
     'home': 'MAPS OF ALGERIA.html',
     'map': 'MAPS OF ALGERIA.html',
@@ -47,10 +53,15 @@ const pages = {
 function handleSearch() {
     const searchBar = document.getElementById('search-bar');
     const suggestions = document.getElementById('suggestions');
-    const query = searchBar.value.toLowerCase();
+    if (!searchBar || !suggestions) return;
 
-    //reset suggestions
+    const query = searchBar.value.trim().toLowerCase();
     suggestions.innerHTML = '';
+
+    if (!query) {
+        suggestions.style.display = 'none';
+        return;
+    }
 
     for (let term in pages) {
         if (term.startsWith(query) && query.length > 0) {
@@ -64,6 +75,15 @@ function handleSearch() {
     suggestions.style.display = suggestions.childNodes.length > 0 ? 'block' : 'none';
 }
 
+// Close suggestions on outside click
+document.addEventListener('click', (e) => {
+    const searchContainer = document.querySelector('.search-container');
+    const suggestions = document.getElementById('suggestions');
+    if (suggestions && searchContainer && !searchContainer.contains(e.target)) {
+        suggestions.style.display = 'none';
+    }
+});
+
 function apifun(state_name) {
-    window.open("https://www.google.com/search?q=" + state_name);
+    window.open("https://www.google.com/search?q=" + encodeURIComponent("Algeria " + state_name));
 }

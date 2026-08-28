@@ -1,23 +1,39 @@
 ﻿<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algeria: Beauty in Diversity - Video with Arabic Subtitles</title>
+    <title>Algeria: Beauty in Diversity - Video</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav class="navbar">
+        <a href="MAPS OF ALGERIA.html">Home</a>
+        <a href="population.html">Population</a>
+        <a href="statistic.html">Economy</a>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" autocomplete="off" />
+            <ul id="suggestions" class="suggestions"></ul>
+        </div>
+    </nav>
 
-<h1>Algeria: Beauty in Diversity - Video with Arabic Subtitles</h1>
+    <main style="padding: 20px; width: 100%; max-width: 900px;">
+        <h1>Algeria: Beauty in Diversity</h1>
+        <p style="margin-top: 8px; font-size: 1.05em;">Documentary video with Arabic subtitles</p>
 
-<!-- Video player with Arabic subtitles -->
-<video controls width="800" height="450">
-    <source src="algeria.mp4" type="video/mp4">
-    <track src="subtitles_ar.vtt" kind="subtitles" srclang="ar" label="العربية" default>
-    Votre navigateur ne prend pas en charge la balise vidéo.
+        <div style="margin-top: 30px;">
+            <video controls width="800" height="450">
+                <source src="algeria.mp4" type="video/mp4">
+                <track src="subtitles_ar.vtt" kind="subtitles" srclang="ar" label="العربية" default>
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+    </main>
 
-    
-</video>
+    <footer>
+        <p>Explore Algeria - A Rich and Beautiful Country</p>
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>

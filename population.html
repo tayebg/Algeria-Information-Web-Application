@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Population</title>
+    <title>Population - Algeria</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,86 +14,87 @@
         <a href="statistic.html">Economy</a>
 
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" />
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" autocomplete="off" />
             <ul id="suggestions" class="suggestions"></ul>
         </div>
     </nav>
 
-    <h1>Population</h1>
-    <canvas id="histogram" width="400" height="400"></canvas>
+    <main style="padding: 20px; width: 100%; max-width: 900px;">
+        <h1>Population Statistics</h1>
+        <p style="margin-top: 8px; font-size: 1.05em;">Historical evolution of the Algerian population (in millions)</p>
+        
+        <canvas id="histogram" width="420" height="400"></canvas>
+    </main>
 
+    <footer>
+        <p>Explore Algeria - A Rich and Beautiful Country</p>
+    </footer>
+
+    <script src="script.js"></script>
     <script>
         const canvas = document.getElementById('histogram');
-        const ctx = canvas.getContext('2d');
-        const data = [
-            { label: "1990", value: 30 },
-            { label: "2000", value: 50 },
-            { label: "2020", value: 40 }
-        ];
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const data = [
+                { label: "1990", value: 30 },
+                { label: "2000", value: 50 },
+                { label: "2020", value: 40 }
+            ];
 
-        ctx.fillStyle = "#000";
-        ctx.beginPath();
+            // Y-Axis
+            ctx.strokeStyle = "#333333";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(50, 350);
+            ctx.lineTo(50, 50);
+            ctx.stroke();
 
-        ctx.moveTo(50, 350);
-        ctx.lineTo(50, 50);
-        ctx.stroke();
+            // Y-Axis Arrow
+            ctx.beginPath();
+            ctx.moveTo(45, 60);
+            ctx.lineTo(50, 50);
+            ctx.lineTo(55, 60);
+            ctx.stroke();
 
-        ctx.lineTo(45, 60); 
-        ctx.moveTo(50, 50);
-        ctx.lineTo(55, 60); 
+            // X-Axis
+            ctx.beginPath();
+            ctx.moveTo(50, 350);
+            ctx.lineTo(380, 350);
+            ctx.stroke();
 
-        ctx.moveTo(50, 350);
-        ctx.lineTo(350, 350);
-        ctx.stroke();
+            // X-Axis Arrow
+            ctx.beginPath();
+            ctx.moveTo(370, 345);
+            ctx.lineTo(380, 350);
+            ctx.lineTo(370, 355);
+            ctx.stroke();
 
-        ctx.lineTo(340, 345);
-        ctx.moveTo(350, 350); 
-        ctx.lineTo(340, 355); 
-        ctx.stroke();
+            // Draw Bars
+            data.forEach((bar, index) => {
+                const x = 100 + index * 90;
+                const barHeight = bar.value * 5;
+                const y = 350 - barHeight;
 
-        data.forEach((bar, index) => {
-            const x = 100 + index * 80;
-            const y = 350 - bar.value * 3;
-            ctx.fillStyle = "#3498db";
-            ctx.fillRect(x, y, 40, bar.value * 3);
+                // Bar Fill
+                ctx.fillStyle = "#3498db";
+                ctx.fillRect(x, y, 50, barHeight);
 
-           
-            ctx.fillStyle = "#000";
-            ctx.fillText(bar.label, x + 5, 370);
-            ctx.fillText(bar.value, x + 5, y - 10);
-        });
+                // Bar Border
+                ctx.strokeStyle = "#2980b9";
+                ctx.strokeRect(x, y, 50, barHeight);
 
-    
-        ctx.fillStyle = "#000";
-        ctx.fillText("Population", 20, 40);  
-        ctx.fillText("Year", 360, 350);      
+                // Labels
+                ctx.fillStyle = "#000000";
+                ctx.font = "bold 13px Arial";
+                ctx.fillText(bar.label, x + 8, 370);
+                ctx.fillText(bar.value + "M", x + 10, y - 10);
+            });
 
-        const pages = {
-            'home': 'MAPS OF ALGERIA.html',
-            'map': 'MAPS OF ALGERIA.html',
-            'flag': 'MAPS OF ALGERIA.html',
-            'maps of algeria': 'MAPS OF ALGERIA.html',
-            'population': 'population.html',
-            'economy': 'statistic.html'
-        };
-
-        function handleSearch() {
-            const searchBar = document.getElementById('search-bar');
-            const suggestions = document.getElementById('suggestions');
-            const query = searchBar.value.toLowerCase();
-
-            suggestions.innerHTML = '';
-
-            for (let term in pages) {
-                if (term.startsWith(query) && query.length > 0) {
-                    const suggestionItem = document.createElement('li');
-                    suggestionItem.innerText = term.charAt(0).toUpperCase() + term.slice(1);
-                    suggestionItem.onclick = () => window.location.href = pages[term];
-                    suggestions.appendChild(suggestionItem);
-                }
-            }
-
-            suggestions.style.display = suggestions.childNodes.length > 0 ? 'block' : 'none';
+            // Axis Titles
+            ctx.fillStyle = "#000000";
+            ctx.font = "bold 14px Arial";
+            ctx.fillText("Population (M)", 10, 35);
+            ctx.fillText("Year", 375, 375);
         }
     </script>
 </body>

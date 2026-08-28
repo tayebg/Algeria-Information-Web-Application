@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Economy</title>
+    <title>Economy - Algeria</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,114 +12,98 @@
         <a href="population.html">Population</a>
         <a href="statistic.html">Economy</a>
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" />
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" autocomplete="off" />
             <ul id="suggestions" class="suggestions"></ul>
         </div>
     </nav>
 
-    <h1>Economy</h1>
-    <canvas width="400" height="400" id="economie"></canvas>
+    <main style="padding: 20px; width: 100%; max-width: 900px;">
+        <h1>Economic Statistics</h1>
+        <p style="margin-top: 8px; font-size: 1.05em;">Distribution of key economic sectors in Algeria</p>
 
+        <canvas width="420" height="420" id="economie"></canvas>
+    </main>
+
+    <footer>
+        <p>Explore Algeria - A Rich and Beautiful Country</p>
+    </footer>
+
+    <script src="script.js"></script>
     <script>
         const eco = document.getElementById("economie");
-        const ctx = eco.getContext("2d");
+        if (eco) {
+            const ctx = eco.getContext("2d");
 
-        
-        const data = [
-            { label: "Population", percentage: 50, color: "green" },
-            { label: "Agriculture", percentage: 30, color: "yellow" },
-            { label: "Other", percentage: 20, color: "red" }
-        ];
+            const data = [
+                { label: "Population", percentage: 50, color: "#27ae60" },
+                { label: "Agriculture", percentage: 30, color: "#f1c40f" },
+                { label: "Other", percentage: 20, color: "#e74c3c" }
+            ];
 
-        let startAngle = 0;
+            let startAngle = 0;
 
-        data.forEach(segment => {
-            const endAngle = startAngle + (segment.percentage / 100) * 2 * Math.PI;
+            data.forEach(segment => {
+                const endAngle = startAngle + (segment.percentage / 100) * 2 * Math.PI;
 
-            
-            ctx.beginPath();
-            ctx.moveTo(200, 200);
-            ctx.arc(200, 200, 100, startAngle, endAngle);
-            ctx.closePath();
-            ctx.fillStyle = segment.color;
-            ctx.fill();
+                // Pie slice
+                ctx.beginPath();
+                ctx.moveTo(210, 210);
+                ctx.arc(210, 210, 100, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
 
-            
-            const middleAngle = (startAngle + endAngle) / 2;
-            const textXInside = 200 + Math.cos(middleAngle) * 50;
-            const textYInside = 200 + Math.sin(middleAngle) * 50;
+                // Percentage text inside
+                const middleAngle = (startAngle + endAngle) / 2;
+                const textXInside = 210 + Math.cos(middleAngle) * 55;
+                const textYInside = 210 + Math.sin(middleAngle) * 55;
 
-            
-            ctx.fillStyle = "#000";
-            ctx.font = "14px Arial";
-            ctx.fillText(${segment.percentage}%, textXInside - 10, textYInside);
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 14px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText(segment.percentage + "%", textXInside, textYInside + 5);
 
-            
-            const arrowStartX = 200 + Math.cos(middleAngle) * 80;
-            const arrowStartY = 200 + Math.sin(middleAngle) * 80;
-            const arrowEndX = 200 + Math.cos(middleAngle) * 140;
-            const arrowEndY = 200 + Math.sin(middleAngle) * 140;
+                // Pointer Arrow
+                const arrowStartX = 210 + Math.cos(middleAngle) * 85;
+                const arrowStartY = 210 + Math.sin(middleAngle) * 85;
+                const arrowEndX = 210 + Math.cos(middleAngle) * 145;
+                const arrowEndY = 210 + Math.sin(middleAngle) * 145;
 
-            
-            ctx.beginPath();
-            ctx.moveTo(arrowStartX, arrowStartY);
-            ctx.lineTo(arrowEndX, arrowEndY);
-            ctx.strokeStyle = "#000";
-            ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(arrowStartX, arrowStartY);
+                ctx.lineTo(arrowEndX, arrowEndY);
+                ctx.strokeStyle = "#333333";
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
 
-            
-            const arrowAngle = Math.PI / 6;
-            const arrowLength = 10;
-            const arrowLeftX = arrowEndX - Math.cos(middleAngle - arrowAngle) * arrowLength;
-            const arrowLeftY = arrowEndY - Math.sin(middleAngle - arrowAngle) * arrowLength;
-            const arrowRightX = arrowEndX - Math.cos(middleAngle + arrowAngle) * arrowLength;
-            const arrowRightY = arrowEndY - Math.sin(middleAngle + arrowAngle) * arrowLength;
+                // Arrow Head
+                const arrowAngle = Math.PI / 6;
+                const arrowLength = 8;
+                const arrowLeftX = arrowEndX - Math.cos(middleAngle - arrowAngle) * arrowLength;
+                const arrowLeftY = arrowEndY - Math.sin(middleAngle - arrowAngle) * arrowLength;
+                const arrowRightX = arrowEndX - Math.cos(middleAngle + arrowAngle) * arrowLength;
+                const arrowRightY = arrowEndY - Math.sin(middleAngle + arrowAngle) * arrowLength;
 
-            ctx.beginPath();
-            ctx.moveTo(arrowEndX, arrowEndY);
-            ctx.lineTo(arrowLeftX, arrowLeftY);
-            ctx.lineTo(arrowRightX, arrowRightY);
-            ctx.closePath();
-            ctx.fillStyle = "#000";
-            ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(arrowEndX, arrowEndY);
+                ctx.lineTo(arrowLeftX, arrowLeftY);
+                ctx.lineTo(arrowRightX, arrowRightY);
+                ctx.closePath();
+                ctx.fillStyle = "#333333";
+                ctx.fill();
 
-           
-            const textXOutside = 200 + Math.cos(middleAngle) * 160;
-            const textYOutside = 200 + Math.sin(middleAngle) * 160;
-            ctx.fillStyle = "#000";
-            ctx.font = "12px Arial";
-            ctx.fillText(segment.label, textXOutside - 20, textYOutside);
+                // Label Text Outside
+                const textXOutside = 210 + Math.cos(middleAngle) * 165;
+                const textYOutside = 210 + Math.sin(middleAngle) * 165;
+                ctx.fillStyle = "#000000";
+                ctx.font = "bold 13px Arial";
+                ctx.fillText(segment.label, textXOutside, textYOutside + 4);
 
-            startAngle = endAngle;
-        });
-
-       
-        const pages = {
-            'home': 'MAPS OF ALGERIA.html',
-            'map': 'MAPS OF ALGERIA.html',
-            'flag': 'MAPS OF ALGERIA.html',
-            'maps of algeria': 'MAPS OF ALGERIA.html',
-            'population': 'population.html',
-            'economy': 'statistic.html'
-        };
-
-        function handleSearch() {
-            const searchBar = document.getElementById('search-bar');
-            const suggestions = document.getElementById('suggestions');
-            const query = searchBar.value.toLowerCase();
-
-            suggestions.innerHTML = '';
-
-            for (let term in pages) {
-                if (term.startsWith(query) && query.length > 0) {
-                    const suggestionItem = document.createElement('li');
-                    suggestionItem.innerText = term.charAt(0).toUpperCase() + term.slice(1);
-                    suggestionItem.onclick = () => window.location.href = pages[term];
-                    suggestions.appendChild(suggestionItem);
-                }
-            }
-
-            suggestions.style.display = suggestions.childNodes.length > 0 ? 'block' : 'none';
+                startAngle = endAngle;
+            });
         }
     </script>
 </body>
