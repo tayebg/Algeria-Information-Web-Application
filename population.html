@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <nav class="navbar">
+        <a href="MAPS OF ALGERIA.html">Home</a>
+        <a href="population.html">Population</a>
+        <a href="statistic.html">Economy</a>
+
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" />
+            <ul id="suggestions" class="suggestions"></ul>
+        </div>
+    </nav>
+
+    <h1>Population</h1>
+    <canvas id="histogram" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('histogram');
+        const ctx = canvas.getContext('2d');
+        const data = [
+            { label: "1990", value: 30 },
+            { label: "2000", value: 50 },
+            { label: "2020", value: 40 }
+        ];
+
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+
+        ctx.moveTo(50, 350);
+        ctx.lineTo(50, 50);
+        ctx.stroke();
+
+        ctx.lineTo(45, 60); 
+        ctx.moveTo(50, 50);
+        ctx.lineTo(55, 60); 
+
+        ctx.moveTo(50, 350);
+        ctx.lineTo(350, 350);
+        ctx.stroke();
+
+        ctx.lineTo(340, 345);
+        ctx.moveTo(350, 350); 
+        ctx.lineTo(340, 355); 
+        ctx.stroke();
+
+        data.forEach((bar, index) => {
+            const x = 100 + index * 80;
+            const y = 350 - bar.value * 3;
+            ctx.fillStyle = "#3498db";
+            ctx.fillRect(x, y, 40, bar.value * 3);
+
+           
+            ctx.fillStyle = "#000";
+            ctx.fillText(bar.label, x + 5, 370);
+            ctx.fillText(bar.value, x + 5, y - 10);
+        });
+
+    
+        ctx.fillStyle = "#000";
+        ctx.fillText("Population", 20, 40);  
+        ctx.fillText("Year", 360, 350);      
+
+        const pages = {
+            'home': 'MAPS OF ALGERIA.html',
+            'map': 'MAPS OF ALGERIA.html',
+            'flag': 'MAPS OF ALGERIA.html',
+            'maps of algeria': 'MAPS OF ALGERIA.html',
+            'population': 'population.html',
+            'economy': 'statistic.html'
+        };
+
+        function handleSearch() {
+            const searchBar = document.getElementById('search-bar');
+            const suggestions = document.getElementById('suggestions');
+            const query = searchBar.value.toLowerCase();
+
+            suggestions.innerHTML = '';
+
+            for (let term in pages) {
+                if (term.startsWith(query) && query.length > 0) {
+                    const suggestionItem = document.createElement('li');
+                    suggestionItem.innerText = term.charAt(0).toUpperCase() + term.slice(1);
+                    suggestionItem.onclick = () => window.location.href = pages[term];
+                    suggestions.appendChild(suggestionItem);
+                }
+            }
+
+            suggestions.style.display = suggestions.childNodes.length > 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

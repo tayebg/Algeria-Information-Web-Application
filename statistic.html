@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="MAPS OF ALGERIA.html">Home</a>
+        <a href="population.html">Population</a>
+        <a href="statistic.html">Economy</a>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" />
+            <ul id="suggestions" class="suggestions"></ul>
+        </div>
+    </nav>
+
+    <h1>Economy</h1>
+    <canvas width="400" height="400" id="economie"></canvas>
+
+    <script>
+        const eco = document.getElementById("economie");
+        const ctx = eco.getContext("2d");
+
+        
+        const data = [
+            { label: "Population", percentage: 50, color: "green" },
+            { label: "Agriculture", percentage: 30, color: "yellow" },
+            { label: "Other", percentage: 20, color: "red" }
+        ];
+
+        let startAngle = 0;
+
+        data.forEach(segment => {
+            const endAngle = startAngle + (segment.percentage / 100) * 2 * Math.PI;
+
+            
+            ctx.beginPath();
+            ctx.moveTo(200, 200);
+            ctx.arc(200, 200, 100, startAngle, endAngle);
+            ctx.closePath();
+            ctx.fillStyle = segment.color;
+            ctx.fill();
+
+            
+            const middleAngle = (startAngle + endAngle) / 2;
+            const textXInside = 200 + Math.cos(middleAngle) * 50;
+            const textYInside = 200 + Math.sin(middleAngle) * 50;
+
+            
+            ctx.fillStyle = "#000";
+            ctx.font = "14px Arial";
+            ctx.fillText(${segment.percentage}%, textXInside - 10, textYInside);
+
+            
+            const arrowStartX = 200 + Math.cos(middleAngle) * 80;
+            const arrowStartY = 200 + Math.sin(middleAngle) * 80;
+            const arrowEndX = 200 + Math.cos(middleAngle) * 140;
+            const arrowEndY = 200 + Math.sin(middleAngle) * 140;
+
+            
+            ctx.beginPath();
+            ctx.moveTo(arrowStartX, arrowStartY);
+            ctx.lineTo(arrowEndX, arrowEndY);
+            ctx.strokeStyle = "#000";
+            ctx.stroke();
+
+            
+            const arrowAngle = Math.PI / 6;
+            const arrowLength = 10;
+            const arrowLeftX = arrowEndX - Math.cos(middleAngle - arrowAngle) * arrowLength;
+            const arrowLeftY = arrowEndY - Math.sin(middleAngle - arrowAngle) * arrowLength;
+            const arrowRightX = arrowEndX - Math.cos(middleAngle + arrowAngle) * arrowLength;
+            const arrowRightY = arrowEndY - Math.sin(middleAngle + arrowAngle) * arrowLength;
+
+            ctx.beginPath();
+            ctx.moveTo(arrowEndX, arrowEndY);
+            ctx.lineTo(arrowLeftX, arrowLeftY);
+            ctx.lineTo(arrowRightX, arrowRightY);
+            ctx.closePath();
+            ctx.fillStyle = "#000";
+            ctx.fill();
+
+           
+            const textXOutside = 200 + Math.cos(middleAngle) * 160;
+            const textYOutside = 200 + Math.sin(middleAngle) * 160;
+            ctx.fillStyle = "#000";
+            ctx.font = "12px Arial";
+            ctx.fillText(segment.label, textXOutside - 20, textYOutside);
+
+            startAngle = endAngle;
+        });
+
+       
+        const pages = {
+            'home': 'MAPS OF ALGERIA.html',
+            'map': 'MAPS OF ALGERIA.html',
+            'flag': 'MAPS OF ALGERIA.html',
+            'maps of algeria': 'MAPS OF ALGERIA.html',
+            'population': 'population.html',
+            'economy': 'statistic.html'
+        };
+
+        function handleSearch() {
+            const searchBar = document.getElementById('search-bar');
+            const suggestions = document.getElementById('suggestions');
+            const query = searchBar.value.toLowerCase();
+
+            suggestions.innerHTML = '';
+
+            for (let term in pages) {
+                if (term.startsWith(query) && query.length > 0) {
+                    const suggestionItem = document.createElement('li');
+                    suggestionItem.innerText = term.charAt(0).toUpperCase() + term.slice(1);
+                    suggestionItem.onclick = () => window.location.href = pages[term];
+                    suggestions.appendChild(suggestionItem);
+                }
+            }
+
+            suggestions.style.display = suggestions.childNodes.length > 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

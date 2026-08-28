@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algeria Information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   
+    <nav class="navbar">
+        <a href="MAPS OF ALGERIA.html">Home</a>
+        <a href="population.html">Population</a>
+        <a href="statistic.html">Economy</a>
+
+        
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()" />
+            <ul id="suggestions" class="suggestions"></ul>
+        </div>
+    </nav>
+  
+    <h1>MAP AND FLAG</h1>
+
+    <div id="map-section">
+
+        <div align="center" style="margin-top: 20px;">
+            <a href="#video-section" onclick="showVideo()" title="Watch the video">
+                <img src="FLAG.png" alt="Flag of Algeria" style="display: block; width: 100%; max-width: 200px;">
+            </a>
+        </div>
+
+     
+        <section class="container">
+            <div id="svg-container"></div> 
+        </section>
+        
+    </div>
+
+  
+    <div id="video-section" style="display: none; margin-top: 50px;">
+        <h2>Algeria: Beauty in Diversity - Video with Arabic Subtitles</h2>
+        <video controls width="800" height="450">
+            <source src="algeria.mp4" type="video/mp4">
+            <track src="subtitles_ar.vtt" kind="subtitles" srclang="ar" label="العربية" default>
+            Votre navigateur ne prend pas en charge la balise vidéo.
+        </video>
+    </div>
+
+    <footer>
+        <p>Explore Algeria - A Rich and Beautiful Country</p>
+    </footer>
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #004C3F; 
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 60px; 
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar a {
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.1em;
+    margin: 0 15px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #D52B1E; 
+}
+
+.search-container {
+    position: relative;
+}
+
+#search-bar {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 200px;
+}
+
+
+.suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background-color: white;
+    width: 200px;
+    border: 1px solid #333;
+    border-radius: 0 0 4px 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+    color: black;
+}
+
+.suggestions li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #D52B1E;
+    color: #FFFFFF;
+}
+
+
+.container {
+    margin: auto;
+    width: 100%;
+    max-width: 1200px; 
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#svg-container svg {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    border: 1px solid #ccc; 
+}
+
+#svg-container svg path {
+    fill: #D52B1E; 
+}
+
+#svg-container svg path:hover {
+    cursor: pointer;
+    fill: #004C3F; 
+}
+
+
+#video-section {
+    margin-top: 50px;
+}
+
+#video-section video {
+    border: 8px solid #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: #FFFFFF;
+    width: 100%;
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    .navbar a {
+        font-size: 1em;
+        padding: 8px 10px;
+    }
+
+    #search-bar {
+        width: 150px;
+    }
+
+    #svg-container svg {
+        max-width: 100%;
+    }
+
+    #video-section video {
+        width: 90%;
+    }
+}
